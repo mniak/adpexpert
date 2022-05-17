@@ -18,6 +18,7 @@ func (c *Client) PunchIn() error {
 			"punchLongitude": nil,
 			"punchAction":    nil,
 		}).
+		// POST, but for testing I am still using Get in order to avoid punching in many times
 		Get("/expert/api/punch/punchin?lp=true")
 	if err != nil {
 		return err
