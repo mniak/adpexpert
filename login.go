@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) Login(username, password string) error {
-	target := "https://expert.brasil.adp.com/expert/"
+	target := coalesce(c.BaseURL, DefaultBaseURL)
 	resp, err := c.newRequest().
 		SetFormData(map[string]string{
 			"USER":     username,
@@ -29,7 +29,7 @@ func (c *Client) Login(username, password string) error {
 
 	resp, err = c.newRequest().
 		SetDoNotParseResponse(true).
-		Get("https://expert.brasil.adp.com/expert/v4/?lp=true")
+		Get("/expert/v4/?lp=true")
 	if err != nil {
 		return err
 	}

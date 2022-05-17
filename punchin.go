@@ -18,7 +18,7 @@ func (c *Client) PunchIn() error {
 			"punchLongitude": nil,
 			"punchAction":    nil,
 		}).
-		Get("https://expert.brasil.adp.com/expert/api/punch/punchin?lp=true")
+		Get("/expert/api/punch/punchin?lp=true")
 	if err != nil {
 		return err
 	}
