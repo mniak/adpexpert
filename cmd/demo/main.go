@@ -1,15 +1,26 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/mniak/adpexpert"
 )
 
+func handle(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func main() {
-	cli := adpexpert.Client{}
+	cli := adpexpert.Client{
+		Debug: true,
+	}
 
 	username := os.Getenv("USERNAME")
 	password := os.Getenv("PASSWORD")
-	cli.Login(username, password)
+
+	handle(cli.Login(username, password))
+	handle(cli.PunchIn())
 }
