@@ -24,4 +24,4 @@ Nothing is planned
 Usage
 --------
 
-Check the example in [`cmd/demo`](/cmd/])
+Check the example in [`cmd/demo`](/cmd/)
