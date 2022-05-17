@@ -15,9 +15,7 @@ func handle(err error) {
 }
 
 func main() {
-	cli := adpexpert.Client{
-		Debug: true,
-	}
+	cli := adpexpert.Client{}
 
 	username := os.Getenv("USERNAME")
 	password := os.Getenv("PASSWORD")
