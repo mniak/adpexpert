@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -22,5 +23,13 @@ func main() {
 	password := os.Getenv("PASSWORD")
 
 	handle(cli.Login(username, password))
-	handle(cli.PunchIn())
+	// handle(cli.PunchIn())
+
+	punches, err := cli.GetLastPunches()
+	handle(err)
+
+	fmt.Println("Last Punches:")
+	for _, punch := range punches.LastPunches {
+		fmt.Println(punch.PunchDateTime)
+	}
 }
