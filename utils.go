@@ -1,11 +1,7 @@
 package adpexpert
 
-type coalescible interface {
-	string
-}
-
-func coalesce[T coalescible](value, fallback T) T {
-	var zero T
+func coalesce(value, fallback string) string {
+	var zero string
 	if value == zero {
 		return fallback
 	}

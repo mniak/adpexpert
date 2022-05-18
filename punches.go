@@ -14,7 +14,7 @@ func (c *Client) PunchIn() error {
 
 	resp, err := c.newRequest().
 		SetHeader("newexpert_sessionid", c.sessionID).
-		SetBody(map[string]any{
+		SetBody(map[string]interface{}{
 			"punchType":      "SPDesktop",
 			"punchLatitude":  nil,
 			"punchLongitude": nil,
@@ -39,7 +39,7 @@ func (c *Client) GetLastPunches() (*LastPunchesInfo, error) {
 
 	resp, err := c.newRequest().
 		SetHeader("newexpert_sessionid", c.sessionID).
-		SetBody(map[string]any{
+		SetBody(map[string]interface{}{
 			"punchType":      "SPDesktop",
 			"punchLatitude":  nil,
 			"punchLongitude": nil,
