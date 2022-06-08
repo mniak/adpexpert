@@ -1,15 +1,14 @@
 package adpexpert
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/mniak/adpexpert/models"
 )
 
 func (c *Client) PunchIn() error {
-	if c.sessionID == "" {
-		return errors.New("not logged in")
+	if err := c.ensureLoggedIn(); err != nil {
+		return err
 	}
 
 	resp, err := c.newRequest().
@@ -33,8 +32,8 @@ func (c *Client) PunchIn() error {
 type LastPunchesInfo models.PunchesResponse
 
 func (c *Client) GetLastPunches() (*LastPunchesInfo, error) {
-	if c.sessionID == "" {
-		return nil, errors.New("not logged in")
+	if err := c.ensureLoggedIn(); err != nil {
+		return nil, err
 	}
 
 	resp, err := c.newRequest().

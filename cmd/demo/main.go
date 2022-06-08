@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/mniak/adpexpert"
 )
@@ -29,5 +30,20 @@ func main() {
 	fmt.Println("Last Punches:")
 	for _, punch := range punches.LastPunches {
 		fmt.Println(punch.PunchDateTime)
+	}
+	fmt.Println()
+
+	now := time.Now()
+	timecard, err := cli.GetTimecard(now.Year(), int(now.Month()))
+	handle(err)
+
+	for _, timetableEntry := range timecard.Timetable {
+		if !timetableEntry.Inconsistent {
+			continue
+		}
+		fmt.Println("Inconsistency:", timetableEntry.Date)
+		for _, timelineEntry := range timetableEntry.Timeline {
+			fmt.Println("  - ", timelineEntry.DateTime)
+		}
 	}
 }
