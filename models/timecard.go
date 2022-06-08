@@ -3,7 +3,7 @@ package models
 type Timecard struct {
 	Employee    TimecardEmployee  `json:"employee"`
 	Reference   TimecardReference `json:"reference"`
-	Timetable   []Timetable       `json:"timetable"`
+	Timetable   []TimetableEntry  `json:"timetable"`
 	Validation  Validation        `json:"validation"`
 	TimeEnabled bool              `json:"timeEnabled"`
 }
@@ -54,19 +54,19 @@ type Validation struct {
 	OtherReferencePending bool `json:"otherReferencePending"`
 }
 
-type Timetable struct {
-	Date               string     `json:"date"`
-	TimeOffDescription *string    `json:"timeOffDescription"`
-	ExceptionDay       bool       `json:"exceptionDay"`
-	Inconsistent       bool       `json:"inconsistent"`
-	Changed            bool       `json:"changed"`
-	LastChange         string     `json:"lastChange"`
-	TimesheetKey       string     `json:"timesheetKey"`
-	Timeline           []Timeline `json:"timeline,omitempty"`
-	Summary            []Summary  `json:"summary,omitempty"`
-	Status             []Status   `json:"status"`
-	Task               *Task      `json:"task,omitempty"`
-	Variables          *Variables `json:"variables,omitempty"`
+type TimetableEntry struct {
+	Date               string          `json:"date"`
+	TimeOffDescription *string         `json:"timeOffDescription"`
+	ExceptionDay       bool            `json:"exceptionDay"`
+	Inconsistent       bool            `json:"inconsistent"`
+	Changed            bool            `json:"changed"`
+	LastChange         string          `json:"lastChange"`
+	TimesheetKey       string          `json:"timesheetKey"`
+	Timeline           []TimelineEntry `json:"timeline,omitempty"`
+	Summary            []SummaryEntry  `json:"summary,omitempty"`
+	Status             []Status        `json:"status"`
+	Task               *Task           `json:"task,omitempty"`
+	Variables          *Variables      `json:"variables,omitempty"`
 }
 
 type Status struct {
@@ -80,20 +80,20 @@ type Meta struct {
 	Format string `json:"format"`
 }
 
-type Summary struct {
+type SummaryEntry struct {
 	Description *string `json:"description"`
 	List        []List  `json:"list"`
 }
 
 type List struct {
-	SummaryCode  string               `json:"summaryCode"`
-	SummaryName  string               `json:"summaryName"`
-	Minutes      int64                `json:"minutes"`
-	SummaryGroup []List               `json:"summaryGroup,omitempty"`
-	SummaryItem  []ClassificationList `json:"summaryItem,omitempty"`
+	SummaryCode  string                `json:"summaryCode"`
+	SummaryName  string                `json:"summaryName"`
+	Minutes      int64                 `json:"minutes"`
+	SummaryGroup []List                `json:"summaryGroup,omitempty"`
+	SummaryItem  []ClassificationEntry `json:"summaryItem,omitempty"`
 }
 
-type ClassificationList struct {
+type ClassificationEntry struct {
 	Code           string `json:"code"`
 	Description    string `json:"description"`
 	Minutes        int64  `json:"minutes"`
@@ -106,7 +106,7 @@ type Task struct {
 	DefinitionKey string `json:"definitionKey"`
 }
 
-type Timeline struct {
+type TimelineEntry struct {
 	DateTime    string `json:"dateTime"`
 	ItemType    int64  `json:"itemType"`
 	TimeColor   int64  `json:"timeColor"`
@@ -130,16 +130,16 @@ type Variables struct {
 }
 
 type Inconsistency struct {
-	ClassificationList []ClassificationList   `json:"classificationList"`
+	ClassificationList []ClassificationEntry  `json:"classificationList"`
 	Actions            Actions                `json:"actions"`
-	Justification      []ClassificationList   `json:"justification"`
+	Justification      []ClassificationEntry  `json:"justification"`
 	Result             InconsistencyResult    `json:"result"`
 	Employee           InconsistencyEmployee  `json:"employee"`
 	Reference          InconsistencyReference `json:"reference"`
 	Status             []Status               `json:"status"`
 	Hash               []Hash                 `json:"hash"`
-	Summary            []Summary              `json:"summary"`
-	Timeline           []Timeline             `json:"timeline"`
+	Summary            []SummaryEntry         `json:"summary"`
+	Timeline           []TimelineEntry        `json:"timeline"`
 	LastCalcEfet       string                 `json:"lastCalcEfet"`
 	LastChange         string                 `json:"lastChange"`
 	Changed            bool                   `json:"changed"`

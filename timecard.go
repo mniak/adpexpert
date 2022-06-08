@@ -3,28 +3,26 @@ package adpexpert
 import (
 	"errors"
 	"fmt"
+
+	"github.com/mniak/adpexpert/models"
 )
 
-func (c *Client) GetTimecard() error {
+func (c *Client) GetTimecard(year, month int) (*models.Timecard, error) {
 	if c.sessionID == "" {
-		return errors.New("not logged in")
+		return nil, errors.New("not logged in")
 	}
 
 	resp, err := c.newRequest().
 		SetHeader("newexpert_sessionid", c.sessionID).
 		SetHeader("serviceplace-context-contextid", c.contextID).
-		SetBody(map[string]interface{}{
-			"punchType":      "SPDesktop",
-			"punchLatitude":  nil,
-			"punchLongitude": nil,
-			"punchAction":    nil,
-		}).
-		Post("/expert/api/punch/punchin?lp=true")
+		SetResult(&models.Timecard{}).
+		Get(fmt.Sprintf("/expert/api/timesheet/time-card/reference/%d/%02d", year, month))
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if !resp.IsSuccess() {
-		return fmt.Errorf("punch-in failed with invalid status: %s", resp.Status())
+		return nil, fmt.Errorf("failed to load timecard invalid status: %s", resp.Status())
 	}
-	return err
+
+	return resp.Result().(*models.Timecard), nil
 }
