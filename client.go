@@ -15,6 +15,7 @@ const (
 type Client struct {
 	client    *resty.Client
 	sessionID string
+	contextID string
 
 	Debug    bool
 	BaseURL  string
